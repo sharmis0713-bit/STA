@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeTravel Guardian • Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left Side - Branding -->
+        <div class="login-branding">
+            <div class="brand-content">
+                <div class="logo">
+                    <div class="logo-icon">🛡️</div>
+                    <h1>SafeTravel Guardian</h1>
+                </div>
+                <p class="brand-tagline">Secure access to your safety dashboard</p>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="login-form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Login to SafeTravel</h2>
+                    <p>Enter your credentials to access your account</p>
+                </div>
+
+                <!-- User Type Selection -->
+                <div class="user-type-selector">
+                    <button class="user-type-btn active" data-type="tourist">
+                        <span class="user-icon">👤</span>
+                        Tourist
+                    </button>
+                    <button class="user-type-btn" data-type="authority">
+                        <span class="user-icon">👮</span>
+                        Authority
+                    </button>
+                </div>
+
+                <!-- Tourist Login Form -->
+                <form class="login-form active" id="touristLoginForm">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="email@service.com" value="tourist@demo.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" value="password123" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember Me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn primary">
+                        Login to Dashboard
+                    </button>
+
+                    <div class="divider">
+                        <span>or continue with</span>
+                    </div>
+
+                    <button type="button" class="login-btn google">
+                        <span class="google-icon">🔍</span>
+                        Login with Google
+                    </button>
+                </form>
+
+                <!-- Authority Login Form -->
+                <form class="login-form" id="authorityLoginForm">
+                    <div class="input-group">
+                        <label for="authorityId">Authority ID</label>
+                        <input type="text" id="authorityId" placeholder="AUTH-XXXX-XXXX" value="AUTH-001" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="authPassword">Password</label>
+                        <input type="password" id="authPassword" placeholder="Enter your password" value="auth123" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="securityCode">Security Code</label>
+                        <input type="password" id="securityCode" placeholder="Enter security code" value="7890" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox">
+                            <input type="checkbox" id="rememberAuth">
+                            <span class="checkmark"></span>
+                            Remember This Device
+                        </label>
+                    </div>
+
+                    <button type="submit" class="login-btn primary">
+                        Access Emergency Dashboard
+                    </button>
+
+                    <div class="security-notice">
+                        <span class="notice-icon">⚠️</span>
+                        Authorized personnel only. All access is monitored.
+                    </div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" class="signup-link">Sign Up</a></p>
+                    
+                    <div class="demo-credentials">
+                        <details>
+                            <summary>Demo Credentials</summary>
+                            <div class="demo-info">
+                                <div class="demo-section">
+                                    <strong>Tourist Demo:</strong>
+                                    <p>Email: tourist@demo.com</p>
+                                    <p>Password: password123</p>
+                                </div>
+                                <div class="demo-section">
+                                    <strong>Authority Demo:</strong>
+                                    <p>ID: AUTH-001</p>
+                                    <p>Password: auth123</p>
+                                    <p>Code: 7890</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

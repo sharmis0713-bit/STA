@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeTravel Guardian • Tourist Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/tourist.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Logout -->
+        <header class="main-header">
+            <div class="header-content">
+                <h1 class="app-title">SafeTravel Guardian</h1>
+                <p class="app-subtitle">24/7 Emergency Protection & Real-time Safety Monitoring</p>
+            </div>
+            <div class="header-actions">
+                <div class="user-info">
+                    <span class="user-welcome">Welcome, Tourist</span>
+                    <button class="logout-btn" onclick="authSystem.logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="content-grid">
+            <!-- Map Section -->
+            <section class="map-container glass-card">
+                <div class="section-header">
+                    <h2>Live Location Tracking</h2>
+                    <div class="location-status" id="locationStatus">
+                        <span class="status-text" id="locationText">Awaiting location access</span>
+                    </div>
+                </div>
+                <div id="map"></div>
+                <div class="location-controls">
+                    <button class="primary-btn location-btn" onclick="safetyApp.getLocation()">
+                        Enable Location Tracking
+                    </button>
+                    <div class="coordinates" id="coordinatesDisplay">
+                        <span id="locationCoordinates">--</span>
+                        <span id="locationAccuracy">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency Panel -->
+            <section class="emergency-panel glass-card">
+                <div class="section-header">
+                    <h2 class="emergency-title">Emergency Response</h2>
+                    <div class="response-status" id="responseStatus">Ready</div>
+                </div>
+                
+                <div class="emergency-buttons">
+                    <button class="emergency-btn critical" onclick="safetyApp.sendEmergency('CRITICAL')">
+                        <span class="btn-icon">⚠️</span>
+                        <span class="btn-text">
+                            <strong>Critical Emergency</strong>
+                            <small>Immediate danger - Connect to emergency services</small>
+                        </span>
+                    </button>
+
+                    <button class="emergency-btn medical" onclick="safetyApp.sendEmergency('MEDICAL')">
+                        <span class="btn-icon">🏥</span>
+                        <span class="btn-text">
+                            <strong>Medical Assistance</strong>
+                            <small>Health emergency - Medical response required</small>
+                        </span>
+                    </button>
+
+                    <button class="emergency-btn security" onclick="safetyApp.sendEmergency('SECURITY')">
+                        <span class="btn-icon">👮</span>
+                        <span class="btn-text">
+                            <strong>Security Assistance</strong>
+                            <small>Security threat - Police/law enforcement needed</small>
+                        </span>
+                    </button>
+
+                    <button class="emergency-btn support" onclick="safetyApp.sendEmergency('SUPPORT')">
+                        <span class="btn-icon">🌐</span>
+                        <span class="btn-text">
+                            <strong>Emergency Support</strong>
+                            <small>Connect with local authorities & assistance</small>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="emergency-info">
+                    <div class="info-item">
+                        <span class="info-label">Response Time:</span>
+                        <span class="info-value" id="responseTime">2.3s average</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Active Responders:</span>
+                        <span class="info-value" id="activeResponders">12 online</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Safety Dashboard -->
+            <section class="dashboard glass-card">
+                <div class="section-header">
+                    <h2>Safety Overview</h2>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="safetyScore">85</div>
+                        <div class="metric-label">Area Safety Score</div>
+                        <div class="metric-subtitle">Good • Monitored</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value risk-level">Low</div>
+                        <div class="metric-label">Threat Level</div>
+                        <div class="metric-subtitle">Normal conditions</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">150+</div>
+                        <div class="metric-label">Countries Covered</div>
+                        <div class="metric-subtitle">Global network</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">24/7</div>
+                        <div class="metric-label">Monitoring</div>
+                        <div class="metric-subtitle">Always active</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency History -->
+            <section class="history-panel glass-card">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                    <div class="history-count" id="emergencyCount">No recent alerts</div>
+                </div>
+                <div class="activity-list" id="emergencyHistory">
+                    <div class="empty-state">
+                        <p>No emergency alerts</p>
+                        <small>Your safety status is actively monitored</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW: Pondicherry Safety Intelligence -->
+            <section class="safety-intelligence glass-card">
+                <div class="section-header">
+                    <h2>🏙️ Pondicherry Safety Intelligence</h2>
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        Live Updates
+                    </div>
+                </div>
+                
+                <div class="safety-map-container">
+                    <div id="safetyHeatmap"></div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="legend-color safe"></span>
+                            <span>Safe (80-100)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color cautious"></span>
+                            <span>Cautious (60-79)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color unsafe"></span>
+                            <span>Unsafe (0-59)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="safety-analysis">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h4>Current Safety Score</h4>
+                            <div class="score-display" id="currentSafetyScore">85</div>
+                            <div class="score-label" id="safetyLevel">Good</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Risk Factors</h4>
+                            <div class="factors-list" id="riskFactors">
+                                <div class="factor positive">✅ Daytime</div>
+                                <div class="factor negative">⚠️ Tourist Area</div>
+                                <div class="factor positive">✅ Well Lit</div>
+                            </div>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Recommendations</h4>
+                            <div class="recommendations" id="safetyRecommendations">
+                                <p>• Stay in well-lit areas</p>
+                                <p>• Avoid isolated streets</p>
+                                <p>• Emergency contacts nearby</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Emergency Modal -->
+        <div id="emergencyModal" class="modal">
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Emergency Alert</h3>
+                    <span class="close-btn" onclick="safetyApp.closeModal()">×</span>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <p>Emergency response initiated</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="primary-btn" onclick="safetyApp.closeModal()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/emergency-broadcast.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/tourist-app.js"></script>
+    <script src="js/safety-ai.js"></script> <!-- ADD THIS LINE -->
+</body>
+</html>
+   
